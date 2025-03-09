@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404, render
 
 from .models import Category, Post
 
-from datetime import timezone
+from django.utils import timezone
 
 
 def index(request):
@@ -34,7 +34,7 @@ def post_detail(request, id):
 
 def category_posts(request, pk):
     template = 'blog/category.html'
-    category = get_object_or_404(Category, pk=pk)
+    category = get_object_or_404(Category, id=pk)
     post = Post.objects.filter(
         category=category,
         is_published=True,
@@ -42,7 +42,7 @@ def category_posts(request, pk):
         category__is_published=False
     )
     context = {
+        'category': category,
         'post': post,
-        'category': category
     }
     return render(request, template, context)
