@@ -2,7 +2,6 @@ from django.db import models
 
 
 class PublishedCreatedModel(models.Model):
-    """Абстрактная модель. Добавляет флаг is_published."""
     is_published = models.BooleanField('Опубликовано', default=True,
                                        help_text='Снимите галочку, чтобы '
                                        'скрыть публикацию.')
