@@ -36,9 +36,9 @@ def post_detail(request, slug):
     return render(request, template, context)
 
 
-def category_posts(request, pk):
+def category_posts(request, category_slug):
     template = 'blog/category.html'
-    category = get_object_or_404(Category, id=pk)
+    category = get_object_or_404(Category, id=category_slug)
     if not category.is_published:
         return render(request, '404.html', status=404)
     post = Post.objects.filter(
