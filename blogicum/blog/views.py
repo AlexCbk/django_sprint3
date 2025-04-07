@@ -18,14 +18,15 @@ def index(request):
     return render(request, template, context)
 
 
-def post_detail(request, id):
+def post_detail(request, slug):
     template = 'blog/detail.html'
     post = get_object_or_404(
         Post.objects.filter(
             is_published=True,
-            pub_date__lte=timezone.now()
+            pub_date__lte=timezone.now(),
+            category__is_published=True
         ),
-        id=id
+        slug=slug
     )
     context = {
         'post': post
@@ -36,6 +37,8 @@ def post_detail(request, id):
 def category_posts(request, pk):
     template = 'blog/category.html'
     category = get_object_or_404(Category, id=pk)
+    if not category.is_published:
+        return render(request, '404.html', status=404)
     post = Post.objects.filter(
         category=category,
         is_published=True,
