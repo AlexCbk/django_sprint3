@@ -2,7 +2,9 @@ from django.db import models
 
 
 class PublishedCreatedModel(models.Model):
-    is_published = models.BooleanField('Опубликовано', default=True,
+    """Абстрактная модель. Добавляет флаг is_published."""
+    is_published = models.BooleanField(default=True,
+                                       verbose_name='Опубликовано',
                                        help_text='Снимите галочку, чтобы '
                                        'скрыть публикацию.')
     created_at = models.DateTimeField('Добавлено', auto_now_add=True)
