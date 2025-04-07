@@ -36,9 +36,10 @@ class Post(PublishedCreatedModel):
                                     help_text='Если установить дату и время '
                                     'в будущем — можно делать отложенные '
                                     'публикации.')
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE,
+                               verbose_name='Автор публикации')
     location = models.ForeignKey(Location, on_delete=models.SET_NULL,
-                                 null=True, verbose_name='Автор публикации')
+                                 null=True, verbose_name='Местоположение')
     category = models.ForeignKey(Category, on_delete=models.SET_NULL,
                                  null=True, verbose_name='Категория')
 
