@@ -42,6 +42,7 @@ class Post(PublishedCreatedModel):
                                  null=True, verbose_name='Местоположение')
     category = models.ForeignKey(Category, on_delete=models.SET_NULL,
                                  null=True, verbose_name='Категория')
+    slug = models.SlugField('Идентификатор', unique=True)
 
     class Meta:
         verbose_name = 'публикация'
