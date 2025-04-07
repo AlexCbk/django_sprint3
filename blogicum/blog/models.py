@@ -32,7 +32,6 @@ class Category(PublishedCreatedModel):
 class Post(PublishedCreatedModel):
     title = models.CharField('Заголовок', max_length=256)
     text = models.TextField('Текст')
-    slug = models.SlugField('Идентификатор', unique=True)
     pub_date = models.DateTimeField('Дата и время публикации',
                                     help_text='Если установить дату и время '
                                     'в будущем — можно делать отложенные '
