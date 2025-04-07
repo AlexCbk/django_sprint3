@@ -7,10 +7,11 @@ from django.utils import timezone
 
 def index(request):
     template = 'blog/index.html'
-    post_list = Post.objects.values(
-    ).filter(is_published=True,
-             category__is_published=True
-             ).order_by('-pub_date')[:5]
+    post_list = Post.objects.filter(
+        is_published=True,
+        pub_date__lte=timezone.now(),
+        category__is_published=True
+    ).order_by('-pub_date')[:5]
     context = {
         'post_list': post_list,
     }
@@ -20,10 +21,10 @@ def index(request):
 def post_detail(request, id):
     template = 'blog/detail.html'
     post = get_object_or_404(
-        Post.objects.values(
-        ).filter(is_published=True,
-                 pub_date__lte=timezone.now()
-                 ),
+        Post.objects.filter(
+            is_published=True,
+            pub_date__lte=timezone.now()
+        ),
         id=id
     )
     context = {
@@ -38,8 +39,7 @@ def category_posts(request, pk):
     post = Post.objects.filter(
         category=category,
         is_published=True,
-        pub_date__lte=timezone.now(),
-        category__is_published=False
+        pub_date__lte=timezone.now()
     )
     context = {
         'category': category,
