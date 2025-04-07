@@ -12,6 +12,8 @@ def index(request):
         pub_date__lte=timezone.now(),
         category__is_published=True
     ).order_by('-pub_date')[:5]
+    for post in post_list:
+        post.category_slug = post.category.slug
     context = {
         'post_list': post_list,
     }
