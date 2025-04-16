@@ -30,19 +30,20 @@ class Category(PublishedCreatedModel):
 
 
 class Post(PublishedCreatedModel):
-    title = models.CharField('Заголовок', max_length=256)
-    text = models.TextField('Текст')
+    title = models.CharField('Заголовок', max_length=256, blank=False)
+    text = models.TextField('Текст', blank=False)
     slug = models.SlugField('Идентификатор', default=None, unique=True)
     pub_date = models.DateTimeField('Дата и время публикации',
                                     help_text='Если установить дату и время '
                                     'в будущем — можно делать отложенные '
-                                    'публикации.')
+                                    'публикации.', blank=False)
     author = models.ForeignKey(User, on_delete=models.CASCADE,
-                               verbose_name='Автор публикации')
+                               verbose_name='Автор публикации', blank=False)
     location = models.ForeignKey(Location, on_delete=models.SET_NULL,
                                  null=True, verbose_name='Местоположение')
     category = models.ForeignKey(Category, on_delete=models.SET_NULL,
-                                 null=True, verbose_name='Категория')
+                                 null=True, verbose_name='Категория',
+                                 blank=False)
 
     class Meta:
         verbose_name = 'публикация'
